@@ -10,7 +10,7 @@ add_executable(${PROJECT_NAME}
         app.h
         app.cpp
         $<TARGET_OBJECTS:glad>
-        camera.h camera_controller.h camera_controller.cpp camera.cpp rotation.h pyramid.h pyramid.cpp)
+        camera.h camera_controller.h camera_controller.cpp camera.cpp rotation.h pyramid.h pyramid.cpp obj_loader.cpp obj_loader.h model.cpp model.h)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC )
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)

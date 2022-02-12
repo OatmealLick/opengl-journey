@@ -1,11 +1,15 @@
 //
-// Created by lick on 18.11.2020.
+// Created by lick on 2/12/2022.
 //
 
-#include <glm/glm.hpp>
-#include "pyramid.h"
+#include <string>
+#include <iostream>
+#include "model.h"
+#include "obj_loader.h"
+#include "glm/glm.hpp"
 
-Pyramid::Pyramid() {
+Model::Model(const std::string &path) {
+    ObjLoader::LoadObj(path, verticesData, indices);
     GLuint idx_buffer_handle;
     glGenBuffers(1, &idx_buffer_handle);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idx_buffer_handle);
@@ -15,7 +19,7 @@ Pyramid::Pyramid() {
     GLuint v_buffer_handle;
     glGenBuffers(1, &v_buffer_handle);
     glBindBuffer(GL_ARRAY_BUFFER, v_buffer_handle);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, verticesData.size() * sizeof(GLfloat), verticesData.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glGenVertexArrays(1, &vao_);
@@ -34,7 +38,7 @@ Pyramid::Pyramid() {
     glBindVertexArray(0);
 }
 
-void Pyramid::draw(glm::mat4 &PVM, GLuint u_pvm_buffer_) const{
+void Model::draw(glm::mat4 &PVM, GLuint u_pvm_buffer_) const{
     glBindBuffer(GL_UNIFORM_BUFFER, u_pvm_buffer_);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, 4 * 4 * sizeof(float), &PVM[0]);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);

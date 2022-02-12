@@ -17,26 +17,26 @@ private:
     GLuint vao_;
     GLuint buffer_[2]; //todo for now there is no need for it to be field
     std::vector<GLfloat> vertices = {
-            -0.5f, -0.5f, 0.5f, 0.8f, 0.1f, 0.8f,
-            0.5f, -0.5f, 0.5f, 0.8f, 0.1f, 0.8f,
-            0.0f, 0.5f, 0.0f, 0.8f, 0.1f, 0.8f, // here ends first triangle
+            -0.5f, -0.5f, 0.5f, 0.8f, 0.1f, 0.8f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.5f, 0.8f, 0.1f, 0.8f, 0.0f, 0.0f,
+            0.0f, 0.5f, 0.0f, 0.8f, 0.1f, 0.8f, 0.0f, 0.0f, // here ends first triangle
 
-            0.5f, -0.5f, 0.5f, 0.1f, 0.8f, 0.8f,
-            0.5f, -0.5f, -0.5f, 0.1f, 0.8f, 0.8f,
-            0.0f, 0.5f, 0.0f, 0.1f, 0.8f, 0.8f, // here ends second triangle
+            0.5f, -0.5f, 0.5f, 0.1f, 0.8f, 0.8f, 0.0f, 0.0f,
+            0.5f, -0.5f, -0.5f, 0.1f, 0.8f, 0.8f, 0.0f, 0.0f,
+            0.0f, 0.5f, 0.0f, 0.1f, 0.8f, 0.8f, 0.0f, 0.0f, // here ends second triangle
 
-            0.5f, -0.5f, -0.5f, 0.2f, 0.2f, 0.8f,
-            -0.5f, -0.5f, -0.5f, 0.2f, 0.2f, 0.8f,
-            0.0f, 0.5f, 0.0f, 0.2f, 0.2f, 0.8f, // here ends third triangle
+            0.5f, -0.5f, -0.5f, 0.2f, 0.2f, 0.8f, 0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f, 0.2f, 0.2f, 0.8f, 0.0f, 0.0f,
+            0.0f, 0.5f, 0.0f, 0.2f, 0.2f, 0.8f, 0.0f, 0.0f, // here ends third triangle
 
-            -0.5f, -0.5f, -0.5f, 0.8f, 0.8f, 0.3f,
-            -0.5f, -0.5f, 0.5f, 0.8f, 0.8f, 0.3f,
-            0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.3f, // here ends fourth triangle
+            -0.5f, -0.5f, -0.5f, 0.8f, 0.8f, 0.3f, 0.0f, 0.0f,
+            -0.5f, -0.5f, 0.5f, 0.8f, 0.8f, 0.3f, 0.0f, 0.0f,
+            0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.3f, 0.0f, 0.0f, // here ends fourth triangle
 
-            -0.5f, -0.5f, 0.5f, 0.3f, 0.1f, 0.3f,
-            0.5f, -0.5f, 0.5f, 0.3f, 0.1f, 0.3f,
-            -0.5f, -0.5f, -0.5f, 0.3f, 0.1f, 0.3f, // here ends base 1 - ABD
-            0.5f, -0.5f, -0.5f, 0.3f, 0.1f, 0.3f, // here ends base 2 - DBC
+            -0.5f, -0.5f, 0.5f, 0.3f, 0.1f, 0.3f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.5f, 0.3f, 0.1f, 0.3f, 0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f, 0.3f, 0.1f, 0.3f, 0.0f, 0.0f, // here ends base 1 - ABD
+            0.5f, -0.5f, -0.5f, 0.3f, 0.1f, 0.3f, 0.0f, 0.0f, // here ends base 2 - DBC
     };
 
     std::vector<GLushort> indices = {

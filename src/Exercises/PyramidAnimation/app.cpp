@@ -13,18 +13,29 @@
 
 #include "Application/utils.h"
 #include "pyramid.h"
+#include "obj_loader.h"
+#include "model.h"
 
 void SimpleShapeApplication::init() {
 
 
-    auto program = xe::create_program(std::string(PROJECT_DIR) + "/shaders/base_vs.glsl",
-                                      std::string(PROJECT_DIR) + "/shaders/base_fs.glsl");
+//    auto program = xe::create_program(std::string(PROJECT_DIR) + "/shaders/base_vs.glsl",
+//                                      std::string(PROJECT_DIR) + "/shaders/base_fs.glsl");
+//
+//
+//    if (!program) {
+//        std::cerr << "Cannot create program from " << std::string(PROJECT_DIR) + "/shaders/base_vs.glsl" << " and ";
+//        std::cerr << std::string(PROJECT_DIR) + "/shaders/base_fs.glsl" << " shader files" << std::endl;
+//    }
+    auto program = xe::create_program(std::string(PROJECT_DIR) + "/shaders/basic_vertex_shader.glsl",
+                                            std::string(PROJECT_DIR) + "/shaders/basic_fragment_shader.glsl");
 
 
     if (!program) {
-        std::cerr << "Cannot create program from " << std::string(PROJECT_DIR) + "/shaders/base_vs.glsl" << " and ";
-        std::cerr << std::string(PROJECT_DIR) + "/shaders/base_fs.glsl" << " shader files" << std::endl;
+        std::cerr << "Cannot create program from " << std::string(PROJECT_DIR) + "/shaders/basic_vertex_shader.glsl" << " and ";
+        std::cerr << std::string(PROJECT_DIR) + "/shaders/basic_fragment_shader.glsl" << " shader files" << std::endl;
     }
+    house = new Model(std::string(PROJECT_DIR) + "/resources/primitive_house.obj");
 
     auto *c = new Camera();
     set_camera(c);
@@ -70,6 +81,10 @@ void SimpleShapeApplication::init() {
     moon_orbital_rotation_period = moon_rotation_period;
     satellite_rotation_period = 2.0f;
     satellite_orbital_rotation_period = satellite_rotation_period;
+
+
+
+
 }
 
 void SimpleShapeApplication::frame() {
@@ -88,6 +103,7 @@ void SimpleShapeApplication::frame() {
 //    auto earth_PVM = camera_->projection() * camera_->view() * O * R;
     auto earth_PVM = camera_->projection() * camera_->view();
     pyramid->draw(earth_PVM, u_pvm_buffer);
+    house->draw(earth_PVM, u_pvm_buffer);
 
     //moon
     //inverting rotation to mimic moon showing only one side to earth

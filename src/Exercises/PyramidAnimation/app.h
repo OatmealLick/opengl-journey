@@ -15,6 +15,7 @@
 #include "camera.h"
 #include "camera_controller.h"
 #include "pyramid.h"
+#include "model.h"
 #include <glm/glm.hpp>
 #include <chrono>
 
@@ -56,6 +57,7 @@ private:
     float moon_orbital_rotation_period;
     float satellite_rotation_period;
     float satellite_orbital_rotation_period;
+    Model *house;
     Pyramid *pyramid;
     Camera *camera_;
     CameraController *controller_;
