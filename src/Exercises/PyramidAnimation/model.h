@@ -16,6 +16,7 @@ public:
     ~Model() = default;
 
     void draw(glm::mat4 &PVM, GLuint u_pvm_buffer_) const;
+    GLuint diffuseTexture;
 
 private:
     GLuint vao_;

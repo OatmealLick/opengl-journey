@@ -19,14 +19,6 @@
 void SimpleShapeApplication::init() {
 
 
-//    auto program = xe::create_program(std::string(PROJECT_DIR) + "/shaders/base_vs.glsl",
-//                                      std::string(PROJECT_DIR) + "/shaders/base_fs.glsl");
-//
-//
-//    if (!program) {
-//        std::cerr << "Cannot create program from " << std::string(PROJECT_DIR) + "/shaders/base_vs.glsl" << " and ";
-//        std::cerr << std::string(PROJECT_DIR) + "/shaders/base_fs.glsl" << " shader files" << std::endl;
-//    }
     auto program = xe::create_program(std::string(PROJECT_DIR) + "/shaders/basic_vertex_shader.glsl",
                                             std::string(PROJECT_DIR) + "/shaders/basic_fragment_shader.glsl");
 
@@ -82,8 +74,12 @@ void SimpleShapeApplication::init() {
     satellite_rotation_period = 2.0f;
     satellite_orbital_rotation_period = satellite_rotation_period;
 
-
-
+    auto u_diffuse_map_location = glGetUniformLocation(program, "diffuse_map");
+    if (u_diffuse_map_location == -1) {
+        std::cerr << "Cannot find uniform diffuse_map\n";
+    } else {
+        glUniform1ui(u_diffuse_map_location, house->diffuseTexture);
+    }
 
 }
 
@@ -102,7 +98,7 @@ void SimpleShapeApplication::frame() {
     auto O = horizontal_orbit_translation_matrix(elapsed_time, orbit_width, orbit_depth, earth_orbital_rotation_period);
 //    auto earth_PVM = camera_->projection() * camera_->view() * O * R;
     auto earth_PVM = camera_->projection() * camera_->view();
-    pyramid->draw(earth_PVM, u_pvm_buffer);
+//    pyramid->draw(earth_PVM, u_pvm_buffer);
     house->draw(earth_PVM, u_pvm_buffer);
 
     //moon

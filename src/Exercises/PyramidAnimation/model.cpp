@@ -7,6 +7,7 @@
 #include "model.h"
 #include "obj_loader.h"
 #include "glm/glm.hpp"
+#include "3rdParty/src/stb/stb_image.h"
 
 Model::Model(const std::string &path) {
     ObjLoader::LoadObj(path, verticesData, indices);
@@ -36,15 +37,30 @@ Model::Model(const std::string &path) {
                           reinterpret_cast<GLvoid *>(5 * sizeof(GLfloat)));
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+    int width, height, n_channels;
+    auto filename = std::string(PROJECT_DIR) + "/resources/primitive-house-texture.png";
+    uint8_t *data = stbi_load(filename.c_str(), &width, &height, &n_channels, 0);
+    if (data) {
+        std::cout << "Loaded texture of dimensions (" << width << ", " << height << ")" << std::endl;
+    } else {
+        std::cout << "No such file or directory: " << filename << std::endl;
+    }
+    glGenTextures(0, &diffuseTexture);
+    glBindTexture(GL_TEXTURE_2D, diffuseTexture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Model::draw(glm::mat4 &PVM, GLuint u_pvm_buffer_) const{
     glBindBuffer(GL_UNIFORM_BUFFER, u_pvm_buffer_);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, 4 * 4 * sizeof(float), &PVM[0]);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
-
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, diffuseTexture);
     glBindVertexArray(vao_);
-    int number_of_elements = 8 * 3;
-    glDrawElements(GL_TRIANGLES, number_of_elements, GL_UNSIGNED_SHORT, nullptr);
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_SHORT, nullptr);
     glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
